@@ -559,7 +559,7 @@ static void copy_or_rename_branch(const char *oldname, const char *newname, int 
 			    oldref.buf, newref.buf);
 
 	if (!copy &&
-	    (!head || strcmp(oldname, head) || !is_null_oid(&head_oid)) &&
+	    (!branch_checked_out(oldref.buf) || ref_exists(oldref.buf)) &&
 	    rename_ref(oldref.buf, newref.buf, logmsg.buf))
 		die(_("Branch rename failed"));
 	if (copy && copy_existing_ref(oldref.buf, newref.buf, logmsg.buf))
